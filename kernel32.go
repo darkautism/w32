@@ -30,7 +30,6 @@ var (
 	procLockResource       = modkernel32.NewProc("LockResource")
 	procLoadResource       = modkernel32.NewProc("LoadResource")
 	procGetLastError       = modkernel32.NewProc("GetLastError")
-	// procOpenProcess                = modkernel32.NewProc("OpenProcess")
 	// procTerminateProcess           = modkernel32.NewProc("TerminateProcess")
 	procCloseHandle                = modkernel32.NewProc("CloseHandle")
 	procCreateToolhelp32Snapshot   = modkernel32.NewProc("CreateToolhelp32Snapshot")
@@ -62,7 +61,7 @@ func GetModuleHandle(modulename string) HINSTANCE {
 	return HINSTANCE(ret)
 }
 
-func MulDiv(number, numerator, denominator int) int {
+func MulDiv(number, numerator, denominator int32) int {
 	ret, _, _ := procMulDiv.Call(
 		uintptr(number),
 		uintptr(numerator),
@@ -107,7 +106,7 @@ func Lstrcpy(buf []uint16, lpString *uint16) {
 		uintptr(unsafe.Pointer(lpString)))
 }
 
-func GlobalAlloc(uFlags uint, dwBytes uint32) HGLOBAL {
+func GlobalAlloc(uFlags uint32, dwBytes uint32) HGLOBAL {
 	ret, _, _ := procGlobalAlloc.Call(
 		uintptr(uFlags),
 		uintptr(dwBytes))
@@ -201,26 +200,6 @@ func GetLastError() uint32 {
 	ret, _, _ := procGetLastError.Call()
 	return uint32(ret)
 }
-
-// func OpenProcess(desiredAccess uint32, inheritHandle bool, processId uint32) HANDLE {
-// 	inherit := 0
-// 	if inheritHandle {
-// 		inherit = 1
-// 	}
-
-// 	ret, _, _ := procOpenProcess.Call(
-// 		uintptr(desiredAccess),
-// 		uintptr(inherit),
-// 		uintptr(processId))
-// 	return HANDLE(ret)
-// }
-
-// func TerminateProcess(hProcess HANDLE, uExitCode uint) bool {
-// 	ret, _, _ := procTerminateProcess.Call(
-// 		uintptr(hProcess),
-// 		uintptr(uExitCode))
-// 	return ret != 0
-// }
 
 func CloseHandle(object HANDLE) bool {
 	ret, _, _ := procCloseHandle.Call(

@@ -47,7 +47,7 @@ var (
 	procDwmUpdateThumbnailProperties     = moddwmapi.NewProc("DwmUpdateThumbnailProperties")
 )
 
-func DwmDefWindowProc(hWnd HWND, msg uint, wParam, lParam uintptr) (bool, uint) {
+func DwmDefWindowProc(hWnd HWND, msg uint32, wParam, lParam uintptr) (bool, uint) {
 	var result uint
 	ret, _, _ := procDwmDefWindowProc.Call(
 		uintptr(hWnd),
@@ -178,7 +178,7 @@ func DwmRenderGesture(gt GESTURE_TYPE, cContacts uint, pdwPointerID *uint32, pPo
 	return
 }
 
-func DwmSetDxFrameDuration(hWnd HWND, cRefreshes int) HRESULT {
+func DwmSetDxFrameDuration(hWnd HWND, cRefreshes int32) HRESULT {
 	ret, _, _ := procDwmSetDxFrameDuration.Call(
 		uintptr(hWnd),
 		uintptr(cRefreshes))

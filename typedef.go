@@ -6,6 +6,7 @@ package w32
 
 import (
 	"unsafe"
+  "syscall"
 )
 
 // From MSDN: Windows Data Types
@@ -182,7 +183,7 @@ type (
 	DWM_FRAME_COUNT uint64
 	DWORD           uint32
 	HACCEL          HANDLE
-	HANDLE          uintptr
+	HANDLE          syscall.Handle
 	HBITMAP         HANDLE
 	HBRUSH          HANDLE
 	HCURSOR         HANDLE

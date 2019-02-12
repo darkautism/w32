@@ -45,14 +45,14 @@ func DragAcceptFiles(hwnd HWND, accept bool) {
 		uintptr(BoolToBOOL(accept)))
 }
 
-func DragQueryFile(hDrop HDROP, iFile uint) (fileName string, fileCount uint) {
+func DragQueryFile(hDrop HDROP, iFile uint32) (fileName string, fileCount uint32) {
 	ret, _, _ := procDragQueryFile.Call(
 		uintptr(hDrop),
 		uintptr(iFile),
 		0,
 		0)
 
-	fileCount = uint(ret)
+	fileCount = uint32(ret)
 
 	if iFile != 0xFFFFFFFF {
 		buf := make([]uint16, fileCount+1)
@@ -86,7 +86,7 @@ func DragFinish(hDrop HDROP) {
 	procDragFinish.Call(uintptr(hDrop))
 }
 
-func ShellExecute(hwnd HWND, lpOperation, lpFile, lpParameters, lpDirectory string, nShowCmd int) error {
+func ShellExecute(hwnd HWND, lpOperation, lpFile, lpParameters, lpDirectory string, nShowCmd int32) error {
 	var op, param, directory uintptr
 	if len(lpOperation) != 0 {
 		op = uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(lpOperation)))
@@ -143,7 +143,7 @@ func ShellExecute(hwnd HWND, lpOperation, lpFile, lpParameters, lpDirectory stri
 	return errors.New(errorMsg)
 }
 
-func ExtractIcon(lpszExeFileName string, nIconIndex int) HICON {
+func ExtractIcon(lpszExeFileName string, nIconIndex int32) HICON {
 	ret, _, _ := procExtractIcon.Call(
 		0,
 		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(lpszExeFileName))),

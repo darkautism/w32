@@ -30,7 +30,7 @@ func InitCommonControlsEx(lpInitCtrls *INITCOMMONCONTROLSEX) bool {
 	return ret != 0
 }
 
-func ImageList_Create(cx, cy int, flags uint, cInitial, cGrow int) HIMAGELIST {
+func ImageList_Create(cx, cy int32, flags uint32, cInitial, cGrow int32) HIMAGELIST {
 	ret, _, _ := procImageList_Create.Call(
 		uintptr(cx),
 		uintptr(cy),
@@ -52,14 +52,14 @@ func ImageList_Destroy(himl HIMAGELIST) bool {
 	return ret != 0
 }
 
-func ImageList_GetImageCount(himl HIMAGELIST) int {
+func ImageList_GetImageCount(himl HIMAGELIST) int32 {
 	ret, _, _ := procImageList_GetImageCount.Call(
 		uintptr(himl))
 
-	return int(ret)
+	return int32(ret)
 }
 
-func ImageList_SetImageCount(himl HIMAGELIST, uNewCount uint) bool {
+func ImageList_SetImageCount(himl HIMAGELIST, uNewCount uint32) bool {
 	ret, _, _ := procImageList_SetImageCount.Call(
 		uintptr(himl),
 		uintptr(uNewCount))
@@ -67,29 +67,29 @@ func ImageList_SetImageCount(himl HIMAGELIST, uNewCount uint) bool {
 	return ret != 0
 }
 
-func ImageList_Add(himl HIMAGELIST, hbmImage, hbmMask HBITMAP) int {
+func ImageList_Add(himl HIMAGELIST, hbmImage, hbmMask HBITMAP) int32 {
 	ret, _, _ := procImageList_Add.Call(
 		uintptr(himl),
 		uintptr(hbmImage),
 		uintptr(hbmMask))
 
-	return int(ret)
+	return int32(ret)
 }
 
-func ImageList_ReplaceIcon(himl HIMAGELIST, i int, hicon HICON) int {
+func ImageList_ReplaceIcon(himl HIMAGELIST, i int32, hicon HICON) int32 {
 	ret, _, _ := procImageList_ReplaceIcon.Call(
 		uintptr(himl),
 		uintptr(i),
 		uintptr(hicon))
 
-	return int(ret)
+	return int32(ret)
 }
 
-func ImageList_AddIcon(himl HIMAGELIST, hicon HICON) int {
+func ImageList_AddIcon(himl HIMAGELIST, hicon HICON) int32 {
 	return ImageList_ReplaceIcon(himl, -1, hicon)
 }
 
-func ImageList_Remove(himl HIMAGELIST, i int) bool {
+func ImageList_Remove(himl HIMAGELIST, i int32) bool {
 	ret, _, _ := procImageList_Remove.Call(
 		uintptr(himl),
 		uintptr(i))

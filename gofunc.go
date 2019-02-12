@@ -67,7 +67,7 @@ func ScreenShot(h HWND, x, y, width, height int) (*GoHBITMAP, error) {
 	old := SelectObject(hDCMem, HGDIOBJ(bitmap))
 	defer SelectObject(hDCMem, old)
 
-	BitBlt(hDCMem, x, y, width, height, hdc, 0, 0, SRCCOPY)
+	BitBlt(hDCMem, int32(x), int32(y), int32(width), int32(height), hdc, 0, 0, SRCCOPY)
 	return &GoHBITMAP{
 		Hbmp:   bitmap,
 		W:      width,

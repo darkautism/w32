@@ -28,7 +28,7 @@ func WglCreateContext(hdc HDC) HGLRC {
 	return HGLRC(ret)
 }
 
-func WglCreateLayerContext(hdc HDC, iLayerPlane int) HGLRC {
+func WglCreateLayerContext(hdc HDC, iLayerPlane int32) HGLRC {
 	ret, _, _ := procwglCreateLayerContext.Call(
 		uintptr(hdc),
 		uintptr(iLayerPlane),
